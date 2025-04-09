@@ -2,4 +2,45 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>lg', '<cmd>LazyGitFilter<cr>', desc = 'LazyGit' },
+    },
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
+    },
+    opts = {},
+  },
+}
